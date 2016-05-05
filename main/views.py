@@ -5,4 +5,8 @@ from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from . import models
 
-# Create your views here.
+
+def index(request):
+	ctx = {}
+
+	return render(request, 'main/index.html', ctx)

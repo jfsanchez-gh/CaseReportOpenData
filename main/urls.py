@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.conf import settings
+from main import views
 
 app_name = 'main'
 
 urlpatterns = [
-
+	url(r'^$', views.index, name='index')
 ]
