@@ -18,9 +18,9 @@
 <header class="navbar-fixed">
     <nav>
         <div class="nav-wrapper red">
-            <a href="/" class="brand-logo">
+            <a href="/" class="brand-logo" >
                 &nbsp;
-                <img src="{% static 'img/logo.svg' %}">
+                <img src="{% static 'img/logo.svg' %}" style="margin-bottom: -10px">
                 Case Report Open Data
             </a>
             <!--<ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -33,19 +33,21 @@
 </header>
 
 <main>
-    <div class="parallax-container">
-        <div class="parallax"><img src="{% static 'img/aedes_1.jpg' %}"></div>
-        <div style="position: absolute;height: 100%;width: 400px;right: 30px; text-align: right; font-size: 20px;color:#fff">
-            <p style="font-size: 24px">Developers tem:</p>
-            <p>Carlos Manuel Ferras Hernandez</p>
-            <p>Antonio Collazo Garcia</p>
-            <p>Jorge Fernandez Sanchez</p>
-            <a href="https://github.com/jfsanchez-gh/CaseReportOpenData" style="color:#e53935" class="text-center">
-                <span class="mdi mdi-github-circle mdi-48px"></span>
-                GitHub
-            </a>
+    {% block parallax %}
+        <div class="parallax-container">
+            <div class="parallax"><img src="{% static 'img/aedes_1.jpg' %}"></div>
+            <div style="position: absolute;height: 100%;width: 400px;right: 30px; text-align: right; font-size: 20px;color:#fff">
+                <p style="font-size: 24px">Developers tem:</p>
+                <p>Carlos Manuel Ferras Hernandez</p>
+                <p>Antonio Collazo Garcia</p>
+                <p>Jorge Fernandez Sanchez</p>
+                <a href="https://github.com/jfsanchez-gh/CaseReportOpenData" style="color:#e53935" class="text-center">
+                    <span class="mdi mdi-github-circle mdi-48px"></span>
+                    GitHub
+                </a>
+            </div>
         </div>
-    </div>
+    {% endblock %}
     <div class="section white">
         {% block content %}{% endblock %}
     </div>

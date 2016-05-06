@@ -8,6 +8,8 @@
     <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
+{% block parallax %}{% endblock %}
+
 {% block javascript %}
     <script type="text/javascript">
         var data = {{ main_world.data | jsonify }};
