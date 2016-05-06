@@ -70,6 +70,10 @@ class Center(models.Model):
 
 class Country(models.Model):
 	name = models.CharField(max_length=144,unique=True)
+	sickness = models.CharField(
+		max_length=1, 
+		choices=SICKNESS_CHOICE,
+	)
 
 	class Meta:
 		verbose_name = "Country"

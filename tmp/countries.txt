@@ -56,8 +56,8 @@ DMA;Dominica
 DNK;Denmark
 DOM;Dominican Republic
 DZA;Algeria
-EAP;East Asia & Pacific (developing only)
-EAS;East Asia & Pacific (all income levels)
+EAP;East Asia & Pacific
+EAS;East Asia & Pacific
 ECA;Europe & Central Asia (developing only)
 ECS;Europe & Central Asia (all income levels)
 ECU;Ecuador
