@@ -32,7 +32,11 @@ def index(request):
 	for case in models.Case.objects.all():
 		code = case.municipality.state.country.code
 		year = case.date.year
-		aux[code][year] += 1
+		if aux.has_key(code) and auc[code].has_key(year):
+			aux[code][year] += 1
+		else:
+			aux[code][year] = 1
+
 		if aux2.has_key(year):
 			aux2[year] += 1
 		else
