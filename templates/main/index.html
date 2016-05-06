@@ -1,0 +1,27 @@
+
+{%  extends 'base.html' %}
+{% load staticfiles %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="https://cloud.github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'lib/highcharts/highcharts.src.js' %}" type="text/javascript" ></script>
+    <script src="{% static 'lib/highcharts/map.src.js' %}" type="text/javascript" ></script>
+    <script src="{% static 'lib/highcharts/maps/world.js' %}" type="text/javascript" ></script>
+    <script src="{% static 'js/main.js' %}" type="text/javascript" ></script>
+{% endblock %}
+
+{% block content %}
+    <div id="wrapper" class="row">
+        <div id="main-world" class="col s12 m7"></div>
+        <div id="country-info" class="col s12 m5">
+            <span class="f32"><span id="flag"></span></span>
+            <h2></h2>
+            <div class="subheader">Click countries to view history</div>
+            <div id="country-chart"></div>
+        </div>
+    </div>
+{% endblock %}

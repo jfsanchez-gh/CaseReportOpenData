@@ -1,0 +1,27 @@
+#wrapper {
+
+    width: 96%;
+    margin: 0 auto;
+    padding: 0;
+}
+#main-world {
+    float: left;
+    height: 500px;
+    margin: 0;
+}
+#country-info {
+    float: left;
+    padding-left: 20px;
+    margin: 100px 0 0 0;
+}
+#country-info h2 {
+    display: inline;
+    font-size: 13pt;
+}
+#country-info .f32 .flag {
+    vertical-align: bottom !important;
+}
+
+#country-info h4 {
+    margin: 10px 0 0 0;
+}
