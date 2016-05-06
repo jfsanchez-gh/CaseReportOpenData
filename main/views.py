@@ -63,7 +63,7 @@ def index(request):
 	ctx['data'] = data
 	ctx['countries'] = countries
 
-	return render(request, 'main/index.html', json.dumps(ctx))
+	return render(request, 'main/index.html', ctx)
 
 
 def main_chart(request):
