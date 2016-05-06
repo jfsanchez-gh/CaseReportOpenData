@@ -60,8 +60,8 @@ def index(request):
 	};
 
 
-	ctx['data'] = json.dumps(data)
-	ctx['countries'] = json.dumps(countries)
+	ctx['data'] = json.loads(data)
+	ctx['countries'] = json.loads(countries)
 
 	return render(request, 'main/index.html', ctx)
 

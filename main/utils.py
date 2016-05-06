@@ -54,6 +54,7 @@ def roboot_insert_countries():
 	for line in f.readlines():
 		first = line.index('(')
 		last = line.index(')')
+		line = line[0:first]
 		str_code,str_name = line.split(';')
 		# print('Country=%s, State=%s, Municipality=%s' %(str_country, str_state, str_municipality))
 		country,saved = models.Country.objects.get_or_create(name=str_country)
