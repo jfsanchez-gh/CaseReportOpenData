@@ -1,0 +1,67 @@
+
+{%  extends 'base.html' %}
+{% load staticfiles %}
+{% load filters %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="https://cloud.github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        var data = {{ main_world.data | jsonify }};
+        var countries = {{ main_world.countries | jsonify }};
+        var world = {{ main_world.all | jsonify }};
+        var bar_chart_categories = {{ bar_chart.categories | jsonify }};
+        var bar_chart_data = {{ bar_chart.data | jsonify }};
+        var bar_chart_totals = {{ bar_chart.totals | jsonify }};
+        var countries_values = {{ bar_chart.countries_values | jsonify }};
+        var countries_totals = {{ bar_chart.countries_totals | jsonify }};
+        var scatter_total = {{ scatter_chart.total | jsonify }};
+        var scatter_countries_values = {{ scatter_chart.countries_values | jsonify }};
+        var scatter_countries_totals = {{ scatter_chart.countries_totals | jsonify }};
+        for (i=0; i< scatter_total.length; i++){
+            scatter_total[i][0] = new Date(scatter_total[i][0]);
+        }
+    </script>
+    <script src="{% static 'lib/highcharts/highcharts.src.js' %}" type="text/javascript" ></script>
+    <script src="{% static 'lib/highcharts/map.src.js' %}" type="text/javascript" ></script>
+    <script src="{% static 'lib/highcharts/maps/world.js' %}" type="text/javascript" ></script>
+    <script src="{% static 'js/main.js' %}" type="text/javascript" ></script>
+{% endblock %}
+
+{% block content %}
+    <div id="wrapper-main-world" class="row">
+        <div id="main-world" class="col s12"></div>
+    </div>
+
+    <div class="divider" style="margin: 30px 10px 30px 10px"></div>
+
+    <div id="wrapper-second-chart" class="row">
+        <div class="col s12 m7">
+            <div class="row">
+                <div class="col s12 country-info history">
+                    <span class="f32"><span id="flag"></span></span>
+                    <h2></h2><small><em> (Shift + Click on map to compare countries)</em></small>
+                    <div class="subheader"><h5>Cases history</h5></div>
+                    <div id="country-chart"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 country-info bar">
+                    <div class="subheader"><h5>Cases by age</h5></div>
+                    <div id="bar-chart" class="col s12"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m5">
+            <div class="row" style="margin-top: 30px">
+                <div class="col s12 country-info scatter">
+                    <div class="subheader"><h5>Cases of dead</h5></div>
+                    <div id="scatter-chart" class="col s12" style="height: 700px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

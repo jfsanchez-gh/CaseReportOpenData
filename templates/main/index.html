@@ -1,41 +1,72 @@
 
 {%  extends 'base.html' %}
 {% load staticfiles %}
-{% load filters %}
 
 {% block style %}
-    <link rel="stylesheet" type="text/css" href="https://cloud.github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
     <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block javascript %}
-    <script type="text/javascript">
-        var data = {{ main_world.data | jsonify }};
-        var countries = {{ main_world.countries | jsonify }};
-        var world = {{ main_world.all | jsonify }};
-    </script>
-    <script src="{% static 'lib/highcharts/highcharts.src.js' %}" type="text/javascript" ></script>
-    <script src="{% static 'lib/highcharts/map.src.js' %}" type="text/javascript" ></script>
-    <script src="{% static 'lib/highcharts/maps/world.js' %}" type="text/javascript" ></script>
     <script src="{% static 'js/main.js' %}" type="text/javascript" ></script>
 {% endblock %}
 
 {% block content %}
-    <div id="wrapper-main-world" class="row">
-        <div id="main-world" class="col s12 m7"></div>
-        <div id="country-info" class="col s12 m5">
-            <span class="f32"><span id="flag"></span></span>
-            <h2></h2>
-            <div class="subheader">Click countries to view history</div>
-            <div id="country-chart"></div>
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="row">
+                <div class="col s12">
+                    <blockquote style="border-color: #ff5722">
+                        Zika virus is an emerging mosquito-borne virus that was first identified in Uganda in 1947, in rhesus monkeys, through a monitoring network of jungle yellow fever
+                    </blockquote>
+                </div>
+                <div class="col s12">
+                    <blockquote style="border-color: #ff9800">
+                        Dengue is a mosquito-borne viral disease that has spread rapidly in all WHO regions in recent years. The dengue virus is transmitted by female mosquitoes mainly Aedes aegypti species and, to a lesser extent, A. albopictus.
+                    </blockquote>
+                </div>
+                <div class="col s12">
+                    <blockquote style="border-color: #ffc107">
+                        Chikungunya fever is a viral disease transmitted to humans by mosquitoes. It was first described during an outbreak in southern Tanzania in 1952.
+                    </blockquote>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="divider" style="margin: 30px 10px 30px 10px"></div>
+        <div class="col s12 m8">
+            <div class="row">
+                <div class="col s12">
+                    <div class="row">
+                        <div class="col s4 ">
+                            <div class="card-panel deep-orange">
 
-    <div id="wrapper-bar-chart" class="row">
-        <div id="bar-chart" class="col s12 m6">
+                            </div>
+                        </div>
+                        <div class="col s4 ">
+                            <div class="card-panel orange">
 
+                            </div>
+                        </div>
+                        <div class="col s4 ">
+                            <div class="card-panel amber">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card-panel grey center-align">
+                                <h5 class="text-white">All Sicks</h5>
+                                <div class="card-action" style="margin-bottom: 55px; font-size: 18px">
+                                    <a href="#" class="col s6 center-align" style="background: rgba(255,255,255,0.2); padding: 15px">Este es un enlace</a>
+                                    <a href="#" class="col s6 center-align">Este es un enlace</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
     </div>
 {% endblock %}

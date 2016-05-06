@@ -1,5 +1,5 @@
 $(function () {
-    var countryChart;
+    var countryChart, barChart, scatterChart;
 
     // Add lower case codes to the data set for inclusion in the tooltip.pointFormat
     var mapData = Highcharts.geojson(Highcharts.maps['custom/world']);
@@ -21,18 +21,17 @@ $(function () {
 
         //if (points.length) {
         if (length === 1) {
-            $('#country-info #flag').attr('class', 'flag ' + points[0].flag);
-            $('#country-info h2').html(points[0].name);
+            $('.country-info #flag').attr('class', 'flag ' + points[0].flag);
+            $('.country-info h2').html(points[0].name);
         } else if (length === 0) {
-            $('#country-info #flag').attr('class', 'flag _United_Nations');
-            $('#country-info h2').html('All the World');
+            $('.country-info #flag').attr('class', 'flag _United_Nations');
+            $('.country-info h2').html('All the World');
 
         } else {
-            $('#country-info #flag').attr('class', 'flag');
-            $('#country-info h2').html('Comparing countries');
+            $('.country-info #flag').attr('class', 'flag');
+            $('.country-info h2').html('Comparing countries');
 
         }
-        $('#country-info .subheader').html('<h4>Case history</h4><small><em>Shift + Click on map to compare countries</em></small>');
 
         if (!countryChart) {
             countryChart = $('#country-chart').highcharts({
@@ -132,6 +131,205 @@ $(function () {
         }
         countryChart.redraw();
 
+        if (!barChart) {
+            barChart = $('#bar-chart').highcharts({
+                title: {
+                    text: null
+                },
+                credits: {
+                    enabled: false
+                },
+                xAxis: {
+                    categories: bar_chart_categories
+                },
+            }).highcharts();
+        }
+
+        var seriesLength = barChart.series.length;
+
+        if (points.length > 0){
+            for(var i = seriesLength - 1; i > -1; i--)
+            {
+                barChart.series[i].remove();
+            }
+
+            var ages = ['Childs', 'Teenagers', 'Adults', 'Old'];
+            var pae = [];
+
+            $.each(points, function (i) {
+                for (j = 0; j < countries_values[this.code3].length; j++){
+                    barChart.addSeries(
+                        {
+                            type: 'column',
+                            name: points.length > 1 ? ages[j]+'('+this.name+')' : ages[j],
+                            data: countries_values[this.code3][j]
+                        }
+                    );
+                }
+
+                for (j = 0; j < countries_totals[this.code3].length; j++){
+                    pae.push(
+                        {
+                            name: points.length > 1 ? ages[j]+'('+this.name+')' : ages[j],
+                            y: countries_totals[this.code3][j],
+                        }
+                    );
+                }
+            });
+            barChart.addSeries(
+                {
+                    type: 'pie',
+                    name: 'Total of cases',
+                    data: pae,
+                    center: [100, 80],
+                    size: 100,
+                    showInLegend: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            );
+        }
+        else{
+            for(var i = seriesLength - 1; i > -1; i--)
+            {
+                barChart.series[i].remove();
+            }
+            var ages = ['Childs', 'Teenagers', 'Adults', 'Old'];
+            for (i = 0; i < bar_chart_data.length; i++){
+                barChart.addSeries(
+                    {
+                        type: 'column',
+                        name: ages[i],
+                        data: bar_chart_data[i]
+                    }
+                );
+            }
+
+            var pae = [];
+            for (i = 0; i < bar_chart_totals.length; i++){
+                pae.push(
+                    {
+                        name: ages[i],
+                        y: bar_chart_totals[i],
+                    }
+                );
+            }
+            barChart.addSeries(
+                {
+                    type: 'pie',
+                    name: 'Total of cases',
+                    data: pae,
+                    center: [100, 80],
+                    size: 100,
+                    showInLegend: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            );
+        }
+        barChart.redraw();
+
+        if (!scatterChart) {
+            scatterChart = $('#scatter-chart').highcharts({
+                chart: {
+                    type: 'scatter',
+                    zoomType: 'xy'
+                },
+                title: {
+                    text: null
+                },
+                subtitle: {
+                    text: null
+                },
+                credits: {
+                    enabled: false
+                },
+                xAxis: {
+                    title: {
+                        text: null
+                    },
+                    type: 'datetime',
+                },
+                yAxis: {
+                    title: {
+                        text: 'Age(years)'
+                    }
+                },
+                legend: {
+                    enabled:false,
+                },
+                plotOptions: {
+                    scatter: {
+                        marker: {
+                            radius: 5,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    lineColor: 'rgb(100,100,100)'
+                                }
+                            }
+                        },
+                        states: {
+                            hover: {
+                                marker: {
+                                    enabled: false
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '',
+                            pointFormat: 'Age: {point.y}; Date: {point.x}'
+                        }
+                    }
+                },
+            }).highcharts();
+        }
+
+        var seriesLength = scatterChart.series.length;
+
+        if (points.length > 0){
+            /*for(var i = seriesLength - 1; i > -1; i--)
+            {
+                if(scatterChart.series[i].name == 'World')
+                    scatterChart.series[i].remove();
+            }
+            $.each(points, function (i) {
+                // Update
+                if (scatterChart.series[i]) {
+                    scatterChart.series[i].update({
+                        name: this.name,
+                        data: countries[this.code3].data,
+                        type: points.length > 1 ? 'line' : 'area'
+                    }, false);
+                } else {
+                    scatterChart.addSeries({
+                        name: this.name,
+                        data: countries[this.code3].data,
+                        type: points.length > 1 ? 'line' : 'area'
+                    }, false);
+                }
+            });
+            while (scatterChart.series.length > points.length) {
+                scatterChart.series[scatterChart.series.length - 1].remove(false);
+            }*/
+        }
+        else{
+            for(var i = seriesLength - 1; i > -1; i--)
+            {
+                scatterChart.series[i].remove();
+            }
+            scatterChart.addSeries({
+                name: 'Deads',
+                data: scatter_total,
+                color: "rgba(223, 83, 83, .5)"
+            }, false);
+        }
+        scatterChart.redraw();
+
+
+
     }
 
     // Initiate the map chart
@@ -144,6 +342,7 @@ $(function () {
         },
         mapNavigation: {
             enabled: true,
+            enableMouseWheelZoom: false,
             buttonOptions: {
                 verticalAlign: 'bottom'
             }
@@ -181,64 +380,5 @@ $(function () {
     }).highcharts();
 
     onChange(false);
-
-    // Pre-select a country
-    //mapChart.get('br').select();
-});
-
-$(function () {
-    $('#bar-chart').highcharts({
-        title: {
-            text: 'Combination chart'
-        },
-        xAxis: {
-            categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
-        },
-        labels: {
-            items: [{
-                html: 'Total fruit consumption',
-                style: {
-                    left: '50px',
-                    top: '18px',
-                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
-                }
-            }]
-        },
-        series: [{
-            type: 'column',
-            name: 'Jane',
-            data: [3, 2, 1, 3, 4]
-        }, {
-            type: 'column',
-            name: 'John',
-            data: [2, 3, 5, 7, 6]
-        }, {
-            type: 'column',
-            name: 'Joe',
-            data: [4, 3, 3, 9, 0]
-        }, {
-            type: 'pie',
-            name: 'Total consumption',
-            data: [{
-                name: 'Jane',
-                y: 13,
-                color: Highcharts.getOptions().colors[0] // Jane's color
-            }, {
-                name: 'John',
-                y: 23,
-                color: Highcharts.getOptions().colors[1] // John's color
-            }, {
-                name: 'Joe',
-                y: 19,
-                color: Highcharts.getOptions().colors[2] // Joe's color
-            }],
-            center: [100, 80],
-            size: 100,
-            showInLegend: false,
-            dataLabels: {
-                enabled: false
-            }
-        }]
-    });
 });
 
