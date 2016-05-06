@@ -32,15 +32,17 @@ def index(request):
 	for case in models.Case.objects.all():
 		code = case.municipality.state.country.code
 		year = case.date.year
-		if aux.has_key(code) and auc[code].has_key(year):
+		if aux.has_key(code) and aux[code].has_key(year):
 			aux[code][year] += 1
 		else:
-			aux[code][year] = 1
+			aux[code] = {year : 1}
 
 		if aux2.has_key(year):
 			aux2[year] += 1
 		else:
 			aux2[year] = 1
+
+	print(aux, aux2)
 
 	world = []
 	for year in aux2:
@@ -51,9 +53,9 @@ def index(request):
 	for code in aux:
 		code_data = []
 		count = 0
-		for year in code:
-			data.append(year, code[year])
-			count += code[year]
+		for year in aux[code]:
+			code_data.append([year, aux[code][year]])
+			count += aux[code][year]
 		data.append({'code3': code, 'value':count})
 		countries[code]={
 			'code3': code,
@@ -64,6 +66,7 @@ def index(request):
 	ctx['data'] = data
 	ctx['world'] = world
 	ctx['countries'] = countries
+	print(ctx)
 
 	return render(request, 'main/index.html', ctx)
 
