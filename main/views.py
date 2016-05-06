@@ -60,10 +60,10 @@ def index(request):
 	};
 
 
-	ctx['data'] = json.dumps(data)
-	ctx['countries'] = json.dumps(countries)
+	ctx['data'] = data
+	ctx['countries'] = countries
 
-	return render(request, 'main/index.html', ctx)
+	return render(request, 'main/index.html', json.dumps(ctx))
 
 
 def main_chart(request):
