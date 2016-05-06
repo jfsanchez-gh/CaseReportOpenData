@@ -39,15 +39,14 @@ def index(request):
 
 		if aux2.has_key(year):
 			aux2[year] += 1
-		else
+		else:
 			aux2[year] = 1
-		if not aux[code][year]:
 
 	world = []
 	for year in aux2:
 		world.append([year, aux2[year]])
 
-	country = {}
+	countries = {}
 	data = []
 	for code in aux:
 		code_data = []
@@ -56,45 +55,10 @@ def index(request):
 			data.append(year, code[year])
 			count += code[year]
 		data.append({'code3': code, 'value':count})
-		country[code]={
+		countries[code]={
 			'code3': code,
 			'data': code_data
 		}
-
-	countries = {
-	'CAN':{
-	'code3': 'CAN',
-	'data': [
-	[1991, 234],
-	[1992, 345],
-	[1994, 234],
-	[1995, 23],
-	[1999, 234],
-	[2000, 123],
-	[2004, 123],
-	[2007, 23],
-	[2013, 234],
-	]
-	},
-	'BRA':{
-	'code3': 'BRA',
-	'data': [
-	[2001, 5],
-	[2005, 344],
-	[2010, 56],
-	[2015, 343],
-	]
-	},
-	'EGY':{
-	'code3': 'EGY',
-	'data': [
-	[2000, 1],
-	[2005, 32],
-	[2007, 543],
-	[2016, 3],
-	]
-	}
-	};
 
 
 	ctx['data'] = data
