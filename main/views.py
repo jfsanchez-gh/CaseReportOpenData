@@ -6,7 +6,11 @@ from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from . import models
 
-def index(request, onlyChart, sickness):
+def index(request):
+	ctx = {}
+	return render(request, 'main/index.html', ctx)
+
+def charts(request, onlyChart, sickness):
 	ctx = {}
 	aux = {}
 	aux2 = {}
@@ -167,6 +171,6 @@ def index(request, onlyChart, sickness):
 
 
 	if not onlyChart:
-		return render(request, 'main/index.html', ctx)
+		return render(request, 'main/charts.html', ctx)
 	else:
 		return render(request, 'main/charts/main_chart.html', ctx)
