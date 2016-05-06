@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-# Create your models here.
 
 
 SEX_CHOICE = (
@@ -11,8 +10,18 @@ SEX_CHOICE = (
     ('F', 'Female'),
 )
 
-class Case(models.Model):
+SICKNESS_CHOICE = (
+	('Z','Zika'),
+	('D','Dengue'),
+	('C','Chikungunya')
+)
 
+
+class Case(models.Model):
+	sickness = models.CharField(
+		max_length=1, 
+		choices=SICKNESS_CHOICE,
+	)
 	age = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
 	sex = models.CharField(
 		max_length=1, 
@@ -34,7 +43,7 @@ class Case(models.Model):
 
 class Municipality(models.Model):
 
-	name = models.CharField(max_length=144)
+	name = models.CharField(max_length=144, unique=True)
 	state = models.ForeignKey('State')
 
 	class Meta:
@@ -47,7 +56,7 @@ class Municipality(models.Model):
 
 
 class Center(models.Model):
-	name = models.CharField(max_length=144)
+	name = models.CharField(max_length=144,unique=True)
 	address = models.CharField(max_length=255)
 
 	class Meta:
@@ -60,7 +69,7 @@ class Center(models.Model):
 
 
 class Country(models.Model):
-	name = models.CharField(max_length=144)
+	name = models.CharField(max_length=144,unique=True)
 
 	class Meta:
 		verbose_name = "Country"
@@ -71,7 +80,8 @@ class Country(models.Model):
 
 
 class State(models.Model):
-	name = models.CharField(max_length=144)
+	name = models.CharField(max_length=144,unique=True)
+	country = models.ForeignKey('Country')
 
 	class Meta:
 		verbose_name = "State"

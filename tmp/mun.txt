@@ -1,0 +1,20 @@
+Cuba,Holguin,Cacocun
+Cuba,Holguin,Urbano Noris
+Cuba,Holguin,Manzanillo
+Cuba,Holguin,Cueto
+Cuba,La Habana,Diez de Octubre
+Cuba,La Habana,Guanabacoa
+Cuba,La Habana,La Lisa
+Cuba,La Habana,Plaza de la Revolucion
+Cuba,Pinar del Rio,San Cristobal
+Cuba,Pinar del Rio,Candelaria
+Cuba,Pinar del Rio,Los Palacios
+Cuba,Pinar del Rio,Pinar del Rio
+Colombia,Amazonas,Leticia
+Colombia,Amazonas,La Victoria
+Colombia,Amazonas,Puerto Santander
+Colombia,Amazonas,La Chorrera
+Colombia,Meta,La Macarena
+Colombia,Meta,La Uribe
+Colombia,Meta,Mesetas
+Colombia,Meta,Cubarral
