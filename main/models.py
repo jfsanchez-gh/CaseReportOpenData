@@ -69,18 +69,15 @@ class Center(models.Model):
 
 
 class Country(models.Model):
-	name = models.CharField(max_length=144,unique=True)
-	sickness = models.CharField(
-		max_length=1, 
-		choices=SICKNESS_CHOICE,
-	)
+	name = models.CharField(max_length=144)
+	code = models.CharField(max_length=3, unique=True)
 
 	class Meta:
 		verbose_name = "Country"
 		verbose_name_plural = "Countries"
 
 	def __unicode__(self):
-		return self.name
+		return self.code
 
 
 class State(models.Model):

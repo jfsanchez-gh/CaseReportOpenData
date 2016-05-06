@@ -7,14 +7,15 @@ def roboot_insert_municipality():
 	for line in f.readlines():
 		str_country,str_state,str_municipality = line.split(',')
 		# print('Country=%s, State=%s, Municipality=%s' %(str_country, str_state, str_municipality))
-		country,saved = models.Country.objects.get_or_create(name=str_country)
-		country.save()
+		country = models.Country.objects.get(name=str_country)
 
 		state,saved = models.State.objects.get_or_create(name=str_state, country=country)
 		state.save()
 
 		municupality,saved = models.Municipality.objects.get_or_create(name=str_municipality, state=state)
 		municupality.save()
+
+		country.save()
 
 
 	f.close()
@@ -50,21 +51,15 @@ def roboot_insert_random_cases():
 
 
 def roboot_insert_countries():
-	f = open('tmp/mun.txt','r')
+	f = open('tmp/countries.txt','r')
 	for line in f.readlines():
-		first = line.index('(')
-		last = line.index(')')
 		if '(' in line and ')' in line:
+			first = line.index('(')
+			last = line.index(')')
 			line = line[0:first] + line[last+1:]
 		str_code,str_name = line.split(';')
-		# print('Country=%s, State=%s, Municipality=%s' %(str_country, str_state, str_municipality))
-		country,saved = models.Country.objects.get_or_create(name=str_country)
+		country,saved = models.Country.objects.get_or_create(name=str_name, code=str_code)
 		country.save()
-
-		state,saved = models.State.objects.get_or_create(name=str_state, country=country)
-		state.save()
-
-		municupality,saved = models.Municipality.objects.get_or_create(name=str_municipality, state=state)
-		municupality.save()
+		# print('code=%s, name=%s' %(str_code, str_name))
 
 	f.close()
