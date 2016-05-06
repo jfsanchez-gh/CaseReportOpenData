@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+import json
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
@@ -58,8 +59,9 @@ def index(request):
 	}
 	};
 
-	ctx['data'] = data
-	ctx['countries'] = countries
+
+	ctx['data'] = json.dumps(data)
+	ctx['countries'] = json.dumps(countries)
 
 	return render(request, 'main/index.html', ctx)
 

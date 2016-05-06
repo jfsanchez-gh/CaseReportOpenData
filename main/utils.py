@@ -47,3 +47,22 @@ def roboot_insert_random_cases():
 			recovered=recovered
 		)
 		case.save()
+
+
+def roboot_insert_countries():
+	f = open('tmp/mun.txt','r')
+	for line in f.readlines():
+		first = line.index('(')
+		last = line.index(')')
+		str_code,str_name = line.split(';')
+		# print('Country=%s, State=%s, Municipality=%s' %(str_country, str_state, str_municipality))
+		country,saved = models.Country.objects.get_or_create(name=str_country)
+		country.save()
+
+		state,saved = models.State.objects.get_or_create(name=str_state, country=country)
+		state.save()
+
+		municupality,saved = models.Municipality.objects.get_or_create(name=str_municipality, state=state)
+		municupality.save()
+
+	f.close()
