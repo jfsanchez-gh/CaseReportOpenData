@@ -21,6 +21,6 @@ from main import views
 app_name = 'main'
 
 urlpatterns = [
-	url(r'^$', views.index, name='index'),
-	url(r'^chart/main/$', views.main_chart, name='main_chart'),
+	url(r'^$', views.index, {'onlyChart': False}, name='index'),
+	url(r'^chart/main/$', views.index, {'onlyChart': True}, name='main_chart'),
 ]

@@ -10,9 +10,9 @@
 
 {% block javascript %}
     <script type="text/javascript">
-        var data = {{ data | jsonify }};
-        var countries = {{ countries | jsonify }};
-        var world = {{ world | jsonify }};
+        var data = {{ main_world.data | jsonify }};
+        var countries = {{ main_world.countries | jsonify }};
+        var world = {{ main_world.all | jsonify }};
     </script>
     <script src="{% static 'lib/highcharts/highcharts.src.js' %}" type="text/javascript" ></script>
     <script src="{% static 'lib/highcharts/map.src.js' %}" type="text/javascript" ></script>
@@ -30,6 +30,12 @@
             <div id="country-chart"></div>
         </div>
     </div>
-    <div class="divider"></div>
 
+    <div class="divider" style="margin: 30px 10px 30px 10px"></div>
+
+    <div id="wrapper-bar-chart" class="row">
+        <div id="bar-chart" class="col s12 m6">
+
+        </div>
+    </div>
 {% endblock %}

@@ -24,8 +24,8 @@ $(function () {
             $('#country-info #flag').attr('class', 'flag ' + points[0].flag);
             $('#country-info h2').html(points[0].name);
         } else if (length === 0) {
-            $('#country-info #flag').attr('class', 'flag');
-            $('#country-info h2').html('All World');
+            $('#country-info #flag').attr('class', 'flag _United_Nations');
+            $('#country-info h2').html('All the World');
 
         } else {
             $('#country-info #flag').attr('class', 'flag');
@@ -125,21 +125,12 @@ $(function () {
             }
             countryChart.addSeries({
                 name: 'World',
-                data: [[1991,123],[2000,500]],
+                data: world,
                 type: 'area',
                 color: "#444444"
             }, false);
         }
         countryChart.redraw();
-
-        /*} else {
-         $('#country-info #flag').attr('class', '');
-         $('#country-info h2').html('');
-         $('#country-info .subheader').html('');
-         if (countryChart) {
-         countryChart = countryChart.destroy();
-         }
-         }*/
 
     }
 
@@ -194,3 +185,60 @@ $(function () {
     // Pre-select a country
     //mapChart.get('br').select();
 });
+
+$(function () {
+    $('#bar-chart').highcharts({
+        title: {
+            text: 'Combination chart'
+        },
+        xAxis: {
+            categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
+        },
+        labels: {
+            items: [{
+                html: 'Total fruit consumption',
+                style: {
+                    left: '50px',
+                    top: '18px',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+                }
+            }]
+        },
+        series: [{
+            type: 'column',
+            name: 'Jane',
+            data: [3, 2, 1, 3, 4]
+        }, {
+            type: 'column',
+            name: 'John',
+            data: [2, 3, 5, 7, 6]
+        }, {
+            type: 'column',
+            name: 'Joe',
+            data: [4, 3, 3, 9, 0]
+        }, {
+            type: 'pie',
+            name: 'Total consumption',
+            data: [{
+                name: 'Jane',
+                y: 13,
+                color: Highcharts.getOptions().colors[0] // Jane's color
+            }, {
+                name: 'John',
+                y: 23,
+                color: Highcharts.getOptions().colors[1] // John's color
+            }, {
+                name: 'Joe',
+                y: 19,
+                color: Highcharts.getOptions().colors[2] // Joe's color
+            }],
+            center: [100, 80],
+            size: 100,
+            showInLegend: false,
+            dataLabels: {
+                enabled: false
+            }
+        }]
+    });
+});
+

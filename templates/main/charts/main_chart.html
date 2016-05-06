@@ -1,0 +1,45 @@
+{% load staticfiles %}
+{% load filters %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Case Report Open Data {% block title %}{% endblock %}</title>
+    <link href="{% static 'lib/materialize/css/materialize.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'lib/materialize/css/materialdesignicons.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'lib/perfect-scrollbar/css/perfect-scrollbar.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://cloud.github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<main>
+    <div class="section white">
+        <div id="wrapper-main-world" class="row">
+            <div id="main-world" class="col s12 m7"></div>
+            <div id="country-info" class="col s12 m5">
+                <span class="f32"><span id="flag"></span></span>
+                <h2></h2>
+                <div class="subheader">Click countries to view history</div>
+                <div id="country-chart"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="{% static 'lib/jquery.min.js' %}" type="text/javascript" ></script>
+<script src="{% static 'lib/materialize/js/materialize.js' %}" type="text/javascript" ></script>
+<script src="{% static 'lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js' %}" type="text/javascript" ></script>
+<script type="text/javascript">
+    var data = {{ main_world.data | jsonify }};
+    var countries = {{ main_world.countries | jsonify }};
+    var world = {{ main_world.all | jsonify }};
+</script>
+<script src="{% static 'lib/highcharts/highcharts.src.js' %}" type="text/javascript" ></script>
+<script src="{% static 'lib/highcharts/map.src.js' %}" type="text/javascript" ></script>
+<script src="{% static 'lib/highcharts/maps/world.js' %}" type="text/javascript" ></script>
+<script src="{% static 'js/main.js' %}" type="text/javascript" ></script>
+</body>
+</html>

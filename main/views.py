@@ -6,27 +6,8 @@ from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from . import models
 
-
-
-def sum_infest_by_country():
-	data = []
-	for case in models.Case.objects.all():
-		code = case.municipality.state.country.code
-		value = models.Case.objects.filter(municipality=case.municipality).count()
-		item = {
-			'code3' : code,
-			'value' : value
-		}
-		data.append(item)
-
-	return data
-
-
-
-def index(request):
+def index(request, onlyChart):
 	ctx = {}
-	# data = sum_infest_by_country()
-
 	aux = {}
 	aux2 = {}
 	for case in models.Case.objects.all():
@@ -41,8 +22,6 @@ def index(request):
 			aux2[year] += 1
 		else:
 			aux2[year] = 1
-
-	print(aux, aux2)
 
 	world = []
 	for year in aux2:
@@ -63,67 +42,9 @@ def index(request):
 		}
 
 
-	ctx['data'] = data
-	ctx['world'] = world
-	ctx['countries'] = countries
-	print(ctx)
+	ctx['main_world'] = {'data': data, 'all': world, 'countries': countries}
 
-	return render(request, 'main/index.html', ctx)
-
-
-def main_chart(request):
-	ctx = {}
-	data = [
-	{
-	'code3': 'CAN',
-	'value': 123,
-	},
-	{
-	'code3': 'BRA',
-	'value': 10000,
-	},
-	{
-	'code3': 'EGY',
-	'value': 15000,
-	},
-	];
-
-	countries = {
-	'CAN':{
-	'code3': 'CAN',
-	'data': [
-	[1991, 234],
-	[1992, 345],
-	[1994, 234],
-	[1995, 23],
-	[1999, 234],
-	[2000, 123],
-	[2004, 123],
-	[2007, 23],
-	[2013, 234],
-	]
-	},
-	'BRA':{
-	'code3': 'BRA',
-	'data': [
-	[2001, 5],
-	[2005, 344],
-	[2010, 56],
-	[2015, 343],
-	]
-	},
-	'EGY':{
-	'code3': 'EGY',
-	'data': [
-	[2000, 1],
-	[2005, 32],
-	[2007, 543],
-	[2016, 3],
-	]
-	}
-	};
-
-	ctx['data'] = data
-	ctx['countries'] = countries
-
-	return render(request, 'main/charts/main_chart.html', ctx)
+	if not onlyChart:
+		return render(request, 'main/index.html', ctx)
+	else:
+		return render(request, 'main/charts/main_chart.html', ctx)
